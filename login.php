@@ -47,7 +47,7 @@
 		$log = new log($db);
 
 		$log->userid = $member->id;
-		$log->login = '1';
+		$log->status = '1';
 
 		if(!$log->create())
 			return;

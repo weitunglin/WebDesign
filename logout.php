@@ -8,10 +8,10 @@
 	$db = $database->connect();
 	$log = new log($db);
 
-	$log->login = 0;
+	$log->status = 0;
 	$log->userid = $_SESSION['id'];
 
-	if(!$log->update_logout()) return;
+	if(!$log->logout()) return;
 
 	$_SESSION['id'] = '';
 	$_SESSION['perm'] = '';

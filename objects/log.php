@@ -9,7 +9,7 @@
 		public $userid;
 		public $username;
 		public $time;
-		public $login;
+		public $status;
 		public $orderby;
 		public $dir;
 		public $offset;
@@ -22,11 +22,11 @@
 
 		function create(){
 
-			$query = "INSERT INTO $this->table_name (userid,login) VALUES( ? , ? )";
+			$query = "INSERT INTO $this->table_name (userid,status) VALUES( ? , ? )";
 
 			$stam = $this->con->prepare($query);
 
-			$stam->bind_param('is',$this->userid,$this->login);
+			$stam->bind_param('is',$this->userid,$this->status);
 
 			if($stam->execute())
 				return true;
@@ -46,7 +46,7 @@
 
 		function read_paging(){
 
-			$query = "SELECT l.id,l.userid,m.acc,l.time,l.login 
+			$query = "SELECT l.id,l.userid,m.acc,l.time,l.status 
 						FROM $this->table_name l JOIN member m ON l.userid = m.id
 						ORDER BY $this->orderby $this->dir
 						LIMIT $this->offset , $this->limit";
@@ -59,9 +59,9 @@
 				return false;
 		}
 
-		function update_logout(){
+		function logout(){
 
-			$query = "UPDATE $this->table_name SET login = $this->login WHERE userid = $this->userid ";
+			$query = "INSERT INTO $this->table_name (userid,status) VALUES ($this->userid ,$this->status) ";
 
 			if($this->con->query($query))
 				return true;

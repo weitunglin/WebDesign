@@ -39,7 +39,7 @@ CREATE TABLE `log` (
 -- 資料表的匯出資料 `log`
 --
 
-INSERT INTO `log` (`id`, `userid`, `time`, `login`) VALUES
+INSERT INTO `log` (`id`, `userid`, `time`, `status`) VALUES
 (1, 2, '2018-03-29 10:57:39', 0),
 (2, 4, '2018-04-03 05:41:25', 0),
 (3, 2, '2018-03-29 10:59:53', 0),

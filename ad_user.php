@@ -24,11 +24,11 @@
 
 	if(isset($_GET['key'])){
 
-		if(!$result = $member->search_paging($_GET['key'])) return json_encode(" 'message' => 'no result' ");
+		if(!$result = $member->search_paging($_GET['key'])) return json_encode(" { 'user':'','paging':'1' } ");
 
 	} else if(isset($_GET['id'])){
 
-		if(!$result = $member->search_id($_GET['id'])) return json_encode(" 'message' => 'incorrect id' ");
+		if(!$result = $member->search_id($_GET['id'])) return json_encode(" { 'user':'','paging':'1' }");
 
 	} else {
 
@@ -38,13 +38,19 @@
 
 	$result = $result->fetch_all();
 
+	$paging = array();
+
 	$arr = array();
 
-	for($i=1;$i<=$total_page;$i++){
-		$arr[$i] = $i;
+	foreach($result as $index => $r){
+		foreach($r as $k => $v){
+			$arr['user'][$index][$k] = $v;
+		}
 	}
 
-	echo json_encode($arr,JSON_FORCE_OBJECT);
-	echo json_encode("~",JSON_FORCE_OBJECT);
-	echo json_encode($result,JSON_FORCE_OBJECT);
+	for($i=1;$i<=$total_page;$i++){
+		$paging['paging'][] = $i;
+	}
+
+	echo json_encode(array_merge($paging,$arr),JSON_FORCE_OBJECT);
 ?>

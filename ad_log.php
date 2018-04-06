@@ -25,21 +25,23 @@
 	$result = $log->read_paging();
 
 	$result = $result->fetch_all();
-
-	foreach($result as $index => $r)
-		foreach($r as $k => $v){
-			if($k == 4)
-				$result[$index][$k] = $v ? '登入中' : '已登出';
-		}
-
+	
 	$arr = array();
 
-	for($i=1;$i<=$total_pages;$i++){
-		$arr[$i] = $i;
+	foreach($result as $index => $r){
+		foreach($r as $k => $v){
+			$arr['log'][$index][$k] = $v;
+			if($k == 4)
+				$arr['log'][$index][$k] = $v ? '登入' : '登出';
+		}
 	}
 
-	echo json_encode($arr,JSON_FORCE_OBJECT);
-	echo json_encode("~");
-	echo json_encode($result,JSON_FORCE_OBJECT);
+	$paping = array();
+
+	for($i=1;$i<=$total_pages;$i++){
+		$paging['paging'][] = $i;
+	}
+
+	echo json_encode(array_merge($paging,$arr),JSON_FORCE_OBJECT);
 
 ?>

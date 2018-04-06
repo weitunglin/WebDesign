@@ -101,7 +101,7 @@
 						<th>使用者編號</th>
 						<th>帳號</th>
 						<th>登入時間</th>
-						<th>登入狀態</th>
+						<th>動作</th>
 					</tr>
 					<tr v-for='log in logs'>
 						<td>{{ log[0] }}</td>
@@ -174,9 +174,9 @@
 				
 				$.get('ad_user.php?page='+app.page_user,
 					function(resp){
-						var result = resp.split('"~"');
-						app.paging  = JSON.parse(result[0])
-						app.users = JSON.parse(result[1]);
+						var resp = JSON.parse(resp);
+						app.paging  = resp.paging;
+						app.users = resp.user;
 					});
 
 				app.user_table = true;
@@ -186,18 +186,18 @@
 
 				$.get('ad_user.php?page=1&key='+app.key,
 					function(resp){
-						var result = resp.split('"~"');
-						app.paging  = JSON.parse(result[0])
-						app.users = JSON.parse(result[1]);
+						var resp = JSON.parse(resp);
+						app.paging  = resp.paging;
+						app.users = resp.user;
 					});
 			},
 			logrecord:function(){
 
 				$.get('ad_log.php?page='+app.page_log,
 					function(resp){
-						var result = resp.split('"~"');
-						app.paging = JSON.parse(result[0]);
-						app.logs = JSON.parse(result[1]);
+						var resp = JSON.parse(resp);
+						app.paging = resp.paging;
+						app.logs = resp.log;
 					});
 
 				app.user_table = false;
@@ -221,13 +221,13 @@
 
 				$.get('ad_user.php?page=1&id='+id,
 					function(resp){
-						var result = resp.split('"~"');
-						result = JSON.parse(result[1]);
-						app.id = result[0][0];
-						app.acc = result[0][1];
-						app.pwd = result[0][2];
-						app.perm = result[0][3];
-						app.name = result[0][4];
+						var resp = JSON.parse(resp);
+						result = resp.user[0];
+						app.id = result[0];
+						app.acc = result[1];
+						app.pwd = result[2];
+						app.perm = result[3];
+						app.name = result[4];
 						dialog.dialog("open");
 					});
 			},
