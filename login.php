@@ -46,7 +46,7 @@
 
 		$log = new log($db);
 
-		$log->userid = $member->id;
+		$log->userid = ($member->id + 1);    //userid to id
 		$log->status = '1';
 
 		if(!$log->create())
