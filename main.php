@@ -49,6 +49,10 @@
 			text-align:center;
 			width:95px;
 		}
+
+		th{
+			cursor:pointer;
+		}
 	</style>
 </head>
 <body>
@@ -72,11 +76,11 @@
 				<br>
 				<table class=center>
 					<tr>
-						<th>使用者編號</th>
-						<th>姓名</th>
-						<th>帳號</th>
-						<th>密碼</th>
-						<th>權限</th>
+						<th v-on:click="sort('id')">使用者編號</th>
+						<th v-on:click="sort('acc')">帳號</th>
+						<th v-on:click="sort('pwd')">密碼</th>
+						<th v-on:click="sort('name')">姓名</th>
+						<th v-on:click="sort('perm')">權限</th>
 						<th colspan=2>管理</th>
 					</tr>
 					<tr v-for='user in users'>
@@ -167,6 +171,7 @@
 			pwd:'allen2001',
 			perm:'c',
 			id:null,
+			orderdir:'asc'
 		},
 		methods:{
 			userdata:function(){
@@ -280,6 +285,23 @@
 				dialog.dialog("close");
 
 				app.userdata();
+			},
+			sort:function(orderby){
+
+				$.get( 'ad_user_order.php?page='+app.page_user+'&orderby='+orderby+'&dir='+app.orderdir,
+					function(resp){
+						var resp = JSON.parse(resp);
+						app.paging = resp.paging;
+						app.users = resp.user;
+					});
+				
+				if(app.orderdir == 'asc')
+					app.orderdir = 'desc';
+				else if (app.orderdir == 'desc')
+					app.orderdir = 'asc';
+
+				
+
 			}
 		},
 		mounted: function(){

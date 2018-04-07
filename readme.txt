@@ -33,20 +33,37 @@ function pad ( s )
 
 letter sql 
 
-	id (primary key) 	filename	title	content    file	  link   userid  time 
+	id (primary key) 	filename	title	content    file	  link   style  userid  time 
+
+
+style sql 
+	title -> font-size , font-color , font-family
+
+	content -> font-size , font-color , font-family
 
 
 
 
+new Vue ({
+
+	el : 'div id',
+
+	data : {
+
+	} ,
+
+	methods : {
+
+	}
+
+)}
 
 
+{
+	"letters" : {
+		"0" : {
+			"filname" : "av" ,
 
-
-
-
-
-
-	--   			-- 				--
-
-  letter         browse           query
-  
+		}
+	}
+}

@@ -66,7 +66,7 @@
 	<br>
 	<div class=top>
 		<button class=topbutton onclick=location.assign('member.php')>會員登入</button>
-		<button class=topbutton onclick=location.assign('eletter.php')>電子報製作精靈</button>
+		<button class=topbutton onclick=location.assign('letter.php')>電子報製作精靈</button>
 	</div>
 	<br>
 </body>

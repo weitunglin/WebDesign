@@ -1,6 +1,8 @@
 <?php
 	
-	if(!isset($_GET['page'])) return json_encode(" 'message' => 'error' ");
+    if(!isset($_GET['page'])) return json_encode(" 'message' => 'error' ");
+    else if(!isset($_GET['orderby'])) return json_encode(" 'message' => 'error' ");
+    else if(!isset($_GET['dir'])) return json_encode(" 'message' => 'error' ");
 	else $page = $_GET['page'];
 
 	include_once('./config/database.php');
@@ -10,15 +12,17 @@
 	$db = $database->connect();
 	$member = new member($db);
 
-	$member->orderby = 'id';
-	$member->dir = 'asc';
+	$member->orderby = $_GET['orderby'];
+	$member->dir = $_GET['dir'];
 	$member->limit = 20;
 
 	$total_rows = $member->read_row()->fetch_assoc()['COUNT(*)'];
 
-	$total_page = floor($total_rows/$member->limit) + 1; 
+	$rows_per_page = $member->limit;
 
-	$member->offset = ($page - 1) * $member->limit;
+	$total_page = floor($total_rows/$rows_per_page) + 1; 
+
+	$member->offset = ($page - 1) * $rows_per_page;
 
 	if(isset($_GET['key'])){
 
