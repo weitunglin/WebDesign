@@ -21,7 +21,7 @@
 
 		function read_member(){
 			
-			$query = " SELECT m.id,m.acc,m.pwd,m.perm,m.name FROM $this->table_name m WHERE acc = ? ";
+			$query = " SELECT LPAD(m.id-1,3,'0') as id ,m.acc,m.pwd,m.perm,m.name FROM $this->table_name m WHERE acc = ? ";
 
 			$stam = $this->con->prepare($query);
 
@@ -48,7 +48,7 @@
 
 		function read_paging(){
 
-			$query = "SELECT * FROM $this->table_name 
+			$query = "SELECT LPAD(m.id-1,3,'0'),m.acc,m.pwd,m.perm,m.name FROM $this->table_name m
 						ORDER BY $this->orderby $this->dir 
 						LIMIT $this->offset , $this->limit";
 
@@ -76,7 +76,7 @@
 
 		function search_paging($key){
 
-			$query = " SELECT * FROM $this->table_name 
+			$query = " SELECT LPAD(m.id-1,3,'0'),m.acc,m.pwd,m.perm,m.name FROM $this->table_name m
 						WHERE `acc` LIKE ? OR `pwd` LIKE ? OR `name` LIKE ? OR `perm` LIKE ? 
 						ORDER BY $this->orderby $this->dir
 						LIMIT $this->offset , $this->limit ";
@@ -100,7 +100,7 @@
 
 		function search_id($id){
 
-			$query = "SELECT * FROM $this->table_name WHERE id = ? ";
+			$query = "SELECT LPAD(m.id-1,3,'0'),m.acc,m.pwd,m.perm,m.name FROM $this->table_name m WHERE id = ? ";
 
 			$stam = $this->con->prepare($query);
 

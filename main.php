@@ -80,13 +80,13 @@
 						<th colspan=2>管理</th>
 					</tr>
 					<tr v-for='user in users'>
-						<td>{{ pad(user[0]-1) }}</td>
+						<td>{{ user[0] }}</td>
 						<td>{{ user[1] }}</td>
 						<td>{{ user[2] }}</td>
 						<td>{{ user[4] }}</td>
 						<td>{{ user[3] }}</td>
-						<td><input type=button value=編輯 v-on:click=edit_user(user[0])></td>
-						<td><input type=button value=刪除 v-on:click=delete_user(user[0])></td>
+						<td><input type=button value=編輯 v-on:click=edit_user(parseInt(user[0])+1)></td>
+						<td><input type=button value=刪除 v-on:click=delete_user(parseInt(user[0])+1)></td>
 					</tr>
 				</table>
 				<div class=center> - {{  page_user }} - </div>
@@ -105,7 +105,7 @@
 					</tr>
 					<tr v-for='log in logs'>
 						<td>{{ log[0] }}</td>
-						<td>{{ pad(log[1]-1) }}</td>
+						<td>{{ log[1] }}</td>
 						<td>{{ log[2] }}</td>
 						<td>{{ log[3] }}</td>
 						<td>{{ log[4] }}</td>
@@ -223,16 +223,13 @@
 					function(resp){
 						var resp = JSON.parse(resp);
 						result = resp.user[0];
-						app.id = result[0];
+						app.id = parseInt(result[0])+1;
 						app.acc = result[1];
 						app.pwd = result[2];
 						app.perm = result[3];
 						app.name = result[4];
 						dialog.dialog("open");
 					});
-			},
-			pad:function(s){
-				return String(s).length >= 3 ? String(s) : new Array( 3 - String(s).length  + 1).join('0') + String(s);
 			},
 			delete_user:function(id){
 
@@ -245,7 +242,6 @@
 					},
 					function(resp){
 						console.log(resp);
-						
 					}
 				})
 				

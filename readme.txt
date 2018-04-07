@@ -31,7 +31,22 @@ function pad ( s )
 	return String(s) >= width ? String(s) : new Array( width - String(s).length + 1).join('0') + String(s) ;
 
 
+letter sql 
+
+	id (primary key) 	filename	title	content    file	  link   userid  time 
+
+
+
+
+
+
+
+
+
+
+
+
 	--   			-- 				--
 
-  eletter         browse           query
+  letter         browse           query
   
