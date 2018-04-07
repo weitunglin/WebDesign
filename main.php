@@ -150,7 +150,6 @@
 	var app = new Vue({
 		el:'#app',
 		data:{
-			message: 'a',
 			admin: false,
 			client: false,
 			user:'',
