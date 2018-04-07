@@ -63,9 +63,16 @@
         <div class=top>
             <button class=topbutton v-on:click=browse() >瀏覽電子報</button>
             <button class=topbutton v-on:click=query() >查詢及統計電子報</button>
-            <button class=topbutton v-if="user == 'r' || user == 's' " onclick=location.assign('main.php') >返回管理專區</button>
+            <button class=topbutton v-if=" user == 'r' || user == 's' " onclick=location.assign('main.php') >返回管理專區</button>
             <button class=topbutton v-else-if="user == 'c' " onclick=location.assign('main.php') >返回會員專區</button>
             <button class=topbutton v-else onclick=location.assign('index.php') >返回首頁</button>
+        </div>
+
+        <div>
+            <label>查詢關鍵字 : </label>
+            <input type=text v-model=key v-on:keyup.enter=search()>
+            <input type=button v-on:click=search() value=搜尋>
+            <button v-on:click=create() >新增電子報</button>
         </div>
 
         <div v-if=letter_table>
@@ -112,9 +119,15 @@
             paging:null,
             letters:null,
             le_page:1,
+            le_title:'',
+            le_content:'',
+            le_file:'',
+            le_link:'',
         },
         methods:{
             create:function(){
+
+                
 
             },
             edit:function(id){

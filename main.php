@@ -57,9 +57,9 @@
 </head>
 <body>
 	<div id=app>
-		<div v-if=admin class=banner>管理者專區</div>
-		<div v-if=client class=banner>一般會員專區</div>
-		<div v-if=admin>
+		<div v-if="user == 's' || user == 'r'" class=banner>管理者專區</div>
+		<div v-else class=banner>一般會員專區</div>
+		<div v-if="user == 's' || user == 'r'">
 			<div class=top>
 				<button class=topbutton v-on:click=userdata()>使用者帳號資料</button>
 				<button class=topbutton v-on:click=logrecord()>使用者登入登出紀錄</button>
@@ -139,12 +139,11 @@
 			</div>
 		</div>
 
-		<div v-if=client>
+		<div v-else>
 			<div class=top>
 				<button class=topbutton onclick=location.assign('letter.php');>電子報製作精靈</button>
 				<button class=topbutton onclick=location.assign('logout.php');>登出</button>
 			</div>
-
 		</div>
 	</div>
 </body>
@@ -154,8 +153,6 @@
 	var app = new Vue({
 		el:'#app',
 		data:{
-			admin: false,
-			client: false,
 			user:'',
 			users:null,
 			logs:null,
@@ -306,14 +303,6 @@
 		},
 		mounted: function(){
 			this.user = '<?php echo $_SESSION['perm']; ?>';
-			if(this.user == 's' || this.user == 'r'){
-				this.client = false;
-				this.admin = true;
-			}
-			else if(this.user == 'c'){
-				this.admin = false;
-				this.client = true;
-			}
 		}
 	})
 
