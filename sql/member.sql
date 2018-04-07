@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: 127.0.0.1
--- 產生時間： 2018-04-06 14:18:14
+-- 產生時間： 2018-04-07 12:55:51
 -- 伺服器版本: 10.1.30-MariaDB
 -- PHP 版本： 5.6.33
 
@@ -43,10 +43,11 @@ CREATE TABLE `member` (
 INSERT INTO `member` (`id`, `acc`, `pwd`, `perm`, `name`) VALUES
 (1, 'root', '1234', 's', 'root'),
 (2, 'admin', '1234', 'r', 'admin'),
-(3, 'benson', 'ben123', 'c', '何秉育'),
-(4, 'allen', 'allen2001', 'c', '林韋彤'),
-(5, 'johns', 'john123', 'c', 'johnny'),
-(6, 'amy111', 'amy123', 'c', 'amy');
+(3, 'allen', 'allen2001', 'c', '林韋彤'),
+(4, 'benson', 'ben123', 'c', '何秉育'),
+(5, 'john', 'john123', 'c', 'johnny'),
+(6, 'jellykuo', 'jelly1234', 'c', '郭東岳'),
+(7, 'test', '1234', 'c', 'TEST');
 
 --
 -- 已匯出資料表的索引
@@ -66,7 +67,7 @@ ALTER TABLE `member`
 -- 使用資料表 AUTO_INCREMENT `member`
 --
 ALTER TABLE `member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
