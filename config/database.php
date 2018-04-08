@@ -21,6 +21,8 @@
 				}
 
 				self::$instance = $this->con;
+
+				return self::$instance;
 				
 			}
 
