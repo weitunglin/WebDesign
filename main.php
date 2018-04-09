@@ -285,6 +285,7 @@
 			},
 			sort:function(orderby){
 
+				app.page_user = 1;
 				$.get( 'ad_user_order.php?page='+app.page_user+'&orderby='+orderby+'&dir='+app.orderdir,
 					function(resp){
 						var resp = JSON.parse(resp);
