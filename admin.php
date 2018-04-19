@@ -19,11 +19,11 @@
         查詢關鍵字 : <input type=text name=key id=key ><input type=button onclick=search() value=搜尋><input type=button onclick=create() value=新增使用者>
         <table id=usertable>
             <tr>    
-                <th>使用者編號</th>
-                <th>帳號</th>
-                <th>密碼</th>
-                <th>姓名</th>
-                <th>權限</th>
+                <th onclick=sort(0)>使用者編號</th>
+                <th onclick=sort(1)>帳號</th>
+                <th onclick=sort(2)>密碼</th>
+                <th onclick=sort(3)>姓名</th>
+                <th onclick=sort(4)>權限</th>
                 <th colspan=2>管理</th>
             </tr>
             <?php while($row = $member->fetch_assoc()) { ?>
@@ -141,8 +141,8 @@
             switching = false;
             var rows = table.getElementsByTagName("TR");
             for(i=1;i< (rows.length-1) ;i++){
-                var x = rows[i].getElementsByTagName("TD");
-                var y = rows[i+1].getElementsByTagName("TD");
+                var x = rows[i].getElementsByTagName("TD")[n];
+                var y = rows[i+1].getElementsByTagName("TD")[n];
                 if(dir == 'asc'){
                     if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
                         shouldswitch = true;
