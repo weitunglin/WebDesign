@@ -1,49 +1,77 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
-type book struct {
-	id     string  `json:"id"`
-	title  string  `json:"title"`
-	author *author `json:"author"`
+type user struct {
+	ID     string `json:"Id"`
+	Userid string `json:"Userid"`
+	Acc    string `json:"Acc"`
+	Pwd    string `json:"Pwd"`
+	Name   string `json:"Name"`
+	Perm   string `json:"Perm"`
 }
 
-type author struct {
-	firstname string `json:"firstname"`
-	lastname  string `json:"lastname"`
-	nickname  string `json:"nickname"`
+var users []user
+
+func checkerr(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
-var books []book
+func userinit() {
+	db, err := sql.Open("mysql", "allen:allen2001@/web")
+	defer db.Close()
+	checkerr(err)
+	res, err := db.Query("select *,LPAD(id,3,'0') as userid from user")
+	checkerr(err)
+	for res.Next() {
+		var id string
+		var userid string
+		var acc string
+		var pwd string
+		var name string
+		var perm string
+		err := res.Scan(&id, &acc, &pwd, &name, &perm, &userid)
+		checkerr(err)
+		users = append(users, user{ID: id, Acc: acc, Pwd: pwd, Name: name, Perm: perm, Userid: userid})
+	}
+}
 
 func homehandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func getbooks(w http.ResponseWriter, r *http.Request) {
+func getusers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(books)
+	json.NewEncoder(w).Encode(users)
+	fmt.Printf("%v", users)
 }
 
-func getbook(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func createbook(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func updatebook(w http.ResponseWriter, r *http.Request) {
+func getuser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	// params := mux.Vars(r)
 
 }
 
-func deletebook(w http.ResponseWriter, r *http.Request) {
+func createuser(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func updateuser(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func deleteuser(w http.ResponseWriter, r *http.Request) {
 
 }
 
@@ -51,16 +79,15 @@ func main() {
 
 	r := mux.NewRouter()
 
-	books = append(books, book{id: "1", title: "bookone", author: &author{firstname: "weitung", lastname: "lin", nickname: "allen"}})
-	books = append(books, book{id: "2", title: "booktwo", author: &author{firstname: "allen", lastname: "weitung", nickname: "tung"}})
+	userinit()
 
 	r.HandleFunc("/", homehandler)
-	r.HandleFunc("/book", getbooks).Methods("GET")
-	r.HandleFunc("/book/{id}", getbook).Methods("GET")
-	r.HandleFunc("/book/", createbook).Methods("POST")
-	r.HandleFunc("/book/{id}", updatebook).Methods("PUT")
-	r.HandleFunc("/book/{id}", deletebook).Methods("DELETE")
+	r.HandleFunc("/user", getusers).Methods("GET")
+	r.HandleFunc("/user/{id}", getuser).Methods("GET")
+	r.HandleFunc("/user/", createuser).Methods("POST")
+	r.HandleFunc("/user/{id}", updateuser).Methods("PUT")
+	r.HandleFunc("/user/{id}", deleteuser).Methods("DELETE")
 
-	log.Fatal(http.ListenAndServe("localhost:3000", r))
+	log.Fatal(http.ListenAndServe(":8000", r))
 
 }
