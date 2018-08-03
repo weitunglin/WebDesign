@@ -5,10 +5,13 @@ import (
 	"log"
 )
 
+//Db sql con
 var Db *sql.DB
 
-func initDb() {
-	Db, err := sql.Open("mysql", "root:0000@tcp(127.0.0.1:3306)/web?parseTime=true")
+//InitDb initialize
+func InitDb() {
+	var err error
+	Db, err = sql.Open("mysql", "allen:allen2001@tcp(127.0.0.1:3306)/web")
 	checkerr(err, "mysql connection")
 
 	// Db.SetMaxIdleConns(20)
@@ -16,7 +19,6 @@ func initDb() {
 
 	err = Db.Ping()
 	checkerr(err, "mysql ping")
-	return
 }
 
 func checkerr(err error, msg string) {
