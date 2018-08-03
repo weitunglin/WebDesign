@@ -1,7 +1,7 @@
 package main
 
 import (
-	db "./database"
+	db "github.com/weitung/api/database"
 )
 
 func main() {

@@ -2,19 +2,22 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+
+	. "github.com/weitung/api/handlers"
 )
 
 func initRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/", index)
+	router.GET("/", Index)
 
 	groupPerson := router.Group("/person")
 	{
-		groupPerson.GET("/:id", getperson)
-		groupPerson.PUT("/:id", modperson)
-		groupPerson.POST("/", addperson)
-		groupPerson.DELETE("/:id", delperson)
+		groupPerson.GET("/", Getpeople)
+		groupPerson.GET("/:id", Getperson)
+		groupPerson.PUT("/:id", Modperson)
+		groupPerson.POST("/", Addperson)
+		groupPerson.DELETE("/:id", Delperson)
 	}
 
 	return router
